@@ -1,32 +1,32 @@
-import { getProviders, signIn } from "next-auth/react"
+import { getProviders, signIn } from 'next-auth/react'
 
 function Login({ providers }) {
-    return (
-       <div className="flex flex-col items-center bg-black min-h-screen w-full justify-center">
-           <img className="w-52 mb-5" src="https://links.papareact.com/9xl" alt="" />
+  return (
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black">
+      <img className="mb-5 w-52" src="https://links.papareact.com/9xl" alt="" />
 
-        {Object.values(providers).map((provider)=> (
-            <div>
-                <button 
-                    className="bg-[#18D860] text-white p-2 rounded-lg"
-                    onClick={() => signIn(provider.id, { callbackUrl: "/" })}
-                    >
-                        Login with {provider.name}
-                </button>
-            </div>
-        ))}
-       </div> 
-    );
+      {Object.values(providers).map((provider) => (
+        <div>
+          <button
+            key={provider.id}
+            className="rounded-lg bg-[#18D860] p-2 text-white"
+            onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+          >
+            Login with {provider.name}
+          </button>
+        </div>
+      ))}
+    </div>
+  )
 }
-export default Login;
-
+export default Login
 
 export async function getServerSideProps(context) {
-   const providers = await getProviders(); 
+  const providers = await getProviders()
 
-   return {
-       props: {
-           providers,
-       }
-   }
+  return {
+    props: {
+      providers,
+    },
+  }
 }

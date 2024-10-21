@@ -5,7 +5,7 @@ function Login({ providers }) {
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black">
       <img className="mb-5 w-52" src="https://links.papareact.com/9xl" alt="" />
 
-      {Object.values(providers).map((provider) => (
+      {Object.values(providers ?? {}).map((provider) => (
         <div>
           <button
             key={provider.id}
@@ -23,8 +23,6 @@ export default Login
 
 export async function getServerSideProps(context) {
   const providers = await getProviders()
-  console.log(JSON.stringify(providers))
-
   return {
     props: {
       providers,
